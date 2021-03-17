@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "crypto_prices/version"
-require_relative "crypto_prices/nomics_api"
-
+#require_relative "../crypto_prices/version"
+#require_relative "../crypto_prices/nomics_api"
+require 'pry'
 module CryptoPrices
   class Error < StandardError; end
 
@@ -11,15 +11,25 @@ module CryptoPrices
   
     @@all = []
 
-    def initialize(name=nil, current_price=0, available_markets=nil)
+    def initialize(name = nil, current_price = 0, available_markets = nil)
       @name = name
       @current_price = current_price
-      @available_markets = available_markers
+      @available_markets = available_markets
     end
+
+    def save
+      @@all << self
+    end
+
+    def self.current_price
+    end
+
+    binding.pry
 
 
   end
-
+  #bitcoin = self.new("bitcoin", "50000", "coinbase")
+  #ethereum = self.new("ethereum","2000","marketplace")
 
 
 

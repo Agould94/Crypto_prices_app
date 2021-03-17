@@ -2,8 +2,11 @@
 
 User enters Cryptocurrency name, gets price.
 User enters cryptocurrency markets(where they can trade currency), gets a list of marktets
+-user can calculate what an inputted amount of a cryptocurrency is worth.
+-rounds to the nearest dollar
 cryptocurrency has many markets through wallets
 marketplaces have many cryptocurrencies.
+
 
 ## Installation
 
