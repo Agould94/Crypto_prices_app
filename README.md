@@ -1,8 +1,9 @@
 # CryptoPrices
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/crypto_prices`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+User enters Cryptocurrency name, gets price.
+User enters cryptocurrency markets(where they can trade currency), gets a list of marktets
+cryptocurrency has many markets through wallets
+marketplaces have many cryptocurrencies.
 
 ## Installation
 
@@ -41,3 +42,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the CryptoPrices project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/crypto_prices/blob/master/CODE_OF_CONDUCT.md).
+

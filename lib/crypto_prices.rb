@@ -6,3 +6,7 @@ module CryptoPrices
   class Error < StandardError; end
   # Your code goes here...
 end
+
+
+class Crytocurrency
+end
