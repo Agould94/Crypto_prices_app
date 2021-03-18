@@ -25,7 +25,13 @@ class CryptoData
         @@currencys
     end
 
-    def Get_currency
+    def Get_currency(coin)
+        @@currencies.each do |currency_hash|
+            if currency_hash["id"] = coin
+                return currency_hash
+            end
+        end
+    end
 
 
     # def self.currencies_array
