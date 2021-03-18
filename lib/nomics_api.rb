@@ -27,9 +27,9 @@ class CryptoData
         @@currencies
     end
 
-    def Get_currency(coin)
+    def get_currency(coin)
         @currencies.each do |currency_hash|
-            if currency_hash["id"] = coin
+            if currency_hash["id"] == coin
                 return currency_hash
             end
         end
