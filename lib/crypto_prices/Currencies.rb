@@ -22,7 +22,7 @@ class Currencies
 # end
 
 #build a class
-#puts parsed
+# 
 
 #binding.pry
 #p parsed[][][]
