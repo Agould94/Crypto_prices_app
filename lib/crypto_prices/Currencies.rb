@@ -7,7 +7,10 @@ class Currencies
         @price = hash["price"]
         @date = hash["price_date"]
         @supply = hash["circulating_supply"]
+
     end
+
+    
 
     # def currency_ids(input)
 #     input.each do |currency|
