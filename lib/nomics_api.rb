@@ -2,12 +2,12 @@ require 'net/http'
 require 'open-uri'
 require 'json'
 
-class GetPrograms
+class CryptoData
     URLM = "https://api.nomics.com/v1/markets?key=421c2246c0e25e7aad14db3397041634"
     URLC = "https://api.nomics.com/v1/currencies/ticker?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP,LTC,ADA,XLM&interval=1d,30d&convert=USD&per-page=100&page=1"
 
     def initialize
-       @currency_programs = JSON.parse(self.get_programs_for_currencies)
+       @@currencys = JSON.parse(self.get_programs_for_currencies)
     end
 
     def get_programs_for_markets
@@ -21,9 +21,12 @@ class GetPrograms
         response.body
     end
 
-    def parsed_currencies
-        JSON.parse(@currency_programs)
+    def self.all
+        @@currencys
     end
+
+    def Get_currency
+
 
     # def self.currencies_array
     #     self.parsed_currencies
