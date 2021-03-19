@@ -31,9 +31,14 @@ class Currency
         puts self.name
         puts "Current_price: #{self.price}"
         puts "Symbol: #{self.id}"
-        puts "Market Capitalization: #{self.market_cap}"
-        puts "This currency is available on #{self.num_exchanges} different exchanges."
+        puts "The Market Capitalization of #{self.name} is $#{self.market_cap}"
+        puts "#{self.name} is available on #{self.num_exchanges} different exchanges."
+        puts "#{self.name} reached an all-time high of $#{self.high} on #{self.high_timestamp.partition('T').first}"
+    end
 
+    def my_currencies(n)
+        crypto = self.price.to_i
+        puts "You currently own #{n*crypto} worth of #{self.name}"
     end
 
 end
