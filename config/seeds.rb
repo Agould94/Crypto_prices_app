@@ -1,0 +1,1 @@
+CryptoData.new.currencies.each{|currency| Currency.new(currency)}

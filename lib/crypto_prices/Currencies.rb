@@ -4,8 +4,8 @@ class Currency
 
     @@all = []
 
-    def initialize(coin)
-        hash = CryptoData.new.get_currency(coin)
+    def initialize(hash)
+        #hash = CryptoData.new.get_currency(coin)
         @id = hash["id"]
         @currency = hash["currency"]
         @name = hash["name"]
@@ -18,6 +18,10 @@ class Currency
 
     def self.all
         @@all
+    end
+
+    def self.find_by_name(name)
+        self.all.find{|coin| coin.name == name.capitalize}
     end
 
     # def currency_ids(input)
@@ -34,8 +38,8 @@ class Currency
 
 #build a class
 # 
-
 #binding.pry
 #p parsed[][][]
 end
+
 
