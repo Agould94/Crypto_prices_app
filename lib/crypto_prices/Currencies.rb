@@ -36,7 +36,7 @@ class Currency
         puts "#{self.name} reached an all-time high of $#{self.high} on #{self.high_timestamp.partition('T').first}"
     end
 
-    def my_currencies(n)
+    def i_own(n)
         crypto = self.price.to_i
         puts "You currently own #{n*crypto} worth of #{self.name}"
     end

@@ -6,11 +6,14 @@ class CryptoData
     
     URLM = "https://api.nomics.com/v1/markets?key=421c2246c0e25e7aad14db3397041634"
     URLC = "https://api.nomics.com/v1/currencies/ticker?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP,LTC,ADA,XLM&interval=1d,30d&convert=USD&per-page=100&page=1"
-
-    attr_reader :currencies
+    URLCM = "https://api.nomics.com/v1/currencies?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP&attributes=id,name,logo_url,website_url,medium_url,github_url,whitepaper_url"
+    attr_reader :currencies 
+    attr_accessor :metadata, :markets
 
     def initialize
        @currencies = JSON.parse(self.get_programs_for_currencies)
+       sleep 2
+       @metadata = JSON.parse(self.get_currency_metadata)
     end
 
     def get_programs_for_markets
@@ -18,6 +21,21 @@ class CryptoData
         response = Net::HTTP.get_response(uri)
         response.body
     end
+
+    def get_currency_metadata
+        uri = URI.parse(URLCM)
+        response = Net::HTTP.get_response(uri)
+        response.body
+    end
+
+    def market_data
+        @markets = JSON.parse(self.get_programs_for_markets)
+    end
+
+    def meta_data
+        @metadata = JSON.parse(self.get_currency_metadata)
+    end
+
     def get_programs_for_currencies
         uri = URI.parse(URLC)
         response = Net::HTTP.get_response(uri)
