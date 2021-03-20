@@ -23,6 +23,10 @@ class Currency
         @@all
     end
 
+    def add_to_portfolio
+        self.name = Portfolio.new(self)
+    end
+
     def self.find_by_name(name)
         self.all.find{|coin| coin.name == name.capitalize}
     end
@@ -39,6 +43,15 @@ class Currency
     def i_own(n)
         crypto = self.price.to_i
         puts "You currently own #{n*crypto} worth of #{self.name}"
+    end
+
+    def self.coin_value(name, n)
+       coin = self.find_by_name(name).price.to_i
+       n*coin
+    end
+
+    def my_metadata
+        MetaData.find_by_name("#{self.name}")
     end
 
 end
