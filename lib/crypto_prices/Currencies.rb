@@ -23,8 +23,8 @@ class Currency
         @@all
     end
 
-    def add_to_portfolio
-        self.name = Portfolio.new(self)
+    def add_to_portfolio(num)
+        self.name = Portfolio.new(self, num)
     end
 
     def self.find_by_name(name)
