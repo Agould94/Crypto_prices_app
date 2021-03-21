@@ -25,9 +25,37 @@ class CLI
         input = @prompt.select("Which currency would you like to view?", currencies.map{|currency| currency.name})
         @currency = Currency.find_by_name(input)
         currency.print_details
+        currency_menu
     end
 
     def exit_app
         puts "Thank you!"
+    end
+
+    def currency_menu
+        input = @prompt.select("What would you like to do?", [
+            "Read the whitepaper for #{currency.name}.", 
+            "Add this currency to your portfolio.", 
+            "Check this currenies current price.",
+            "See #{currency.name}'s details.",
+            "Exit"
+        ])
+        case input
+        when "Read the whitepaper for #{currency.name}."
+            currency.get_whitepaper
+            currency_menu
+        when "Add this currency to your portfolio."
+            puts "this feature is not yet available"
+            currency_menu
+        when "Check this currenies current price."
+            puts "#{currency.name}'s current price is #{currency.price}"
+            currency_menu
+        when "See #{currency.name}'s details."
+            currency.print_details
+            currency_menu
+        when "Exit"
+            exit_app
+        end
+
     end
 end

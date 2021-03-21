@@ -24,7 +24,15 @@ class Currency
     end
 
     def add_to_portfolio(num)
-        self.name = Portfolio.new(self, num)
+        if c = Portfolio.find_by_name(self.name)
+            c.num += num
+        else Portfolio.create(self, num)
+        end
+    end
+
+    def subtract_from_portfolio(num)
+        coin = Portfolio.find_by_name(self.name)
+        coin.num -= num
     end
 
     def self.find_by_name(name)
