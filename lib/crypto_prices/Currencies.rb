@@ -32,7 +32,7 @@ class Currency
     end
 
     def get_whitepaper
-        metadata = MetaData.new(self)
+        metadata = MetaData.find_by_name(self.name)
         metadata.print_whitepaper
     end
 
