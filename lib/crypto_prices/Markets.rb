@@ -7,7 +7,7 @@ class Markets
         @quote = hash["quote"]
         @market = hash["market"]
         @exchange = hash["exchange"]
-        @@all<< self
+        @@all << self
     end
 
     def self.all

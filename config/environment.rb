@@ -4,6 +4,7 @@ require 'pry'
 Bundler.require
 Dotenv.load
 
+require_relative "../lib/cli.rb"
 require_relative "../lib/crypto_prices/currencies.rb"
 require_relative "../lib/crypto_prices/Currency_metadata.rb"
 require_relative "../lib/nomics_api.rb"

@@ -31,6 +31,11 @@ class Currency
         self.all.find{|coin| coin.name == name.capitalize}
     end
 
+    def get_whitepaper
+        metadata = MetaData.new(self)
+        metadata.print_whitepaper
+    end
+
     def print_details
         puts self.name
         puts "Current_price: #{self.price}"

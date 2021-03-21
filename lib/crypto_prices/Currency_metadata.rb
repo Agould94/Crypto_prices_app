@@ -18,5 +18,9 @@ class MetaData
         self.all.find{|coin| coin.name = name.capitalize}
     end
 
+    def print_whitepaper
+        puts "You can read the whitepaper for this currency at #{@whitepaper_url}"
+    end
+
 
 end
