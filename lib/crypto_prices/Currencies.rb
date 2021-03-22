@@ -23,10 +23,11 @@ class Currency
         @@all
     end
 
-    def add_to_portfolio(num)
-        if c = Portfolio.find_by_name(self.name)
+    def add_to_portfolio(num, name)
+        #p = Portfolio.find_by_username(name)
+        if c = Portfolio.find_by_username_and_name(name, self.name) #Portfolio.find_by_username(name)
             c.num += num
-        else Portfolio.create(self, num)
+        else Portfolio.create(self, num, name)
         end
     end
 

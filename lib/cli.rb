@@ -12,13 +12,23 @@ class CLI
     end
 
     def menu
-        input = @prompt.enum_select("What would you like to do?", ["See all supported cryptocurrencies.", "Exit"])
-        case input
-        when "See all supported cryptocurrencies."
+        if @user
+            input = @prompt.enum_select("What would you like to do?", ["See all supported cryptocurrencies.", "Exit"])
+            case input
+            when "See all supported cryptocurrencies."
             show_currencies(Currency.all)
-        when "Exit"
+            when "Exit"
             exit_app
+            end
+        else
+            prompt_login
+            menu
         end
+    end
+
+    def prompt_login
+        username = @prompt.ask("What is your username?")
+        @user = User.find_or_create(username)
     end
 
     def show_currencies(currencies)
@@ -26,6 +36,10 @@ class CLI
         @currency = Currency.find_by_name(input)
         currency.print_details
         currency_menu
+    end
+
+    def print_portfolio
+        Portfolio.print_portfolio
     end
 
     def exit_app
@@ -36,8 +50,9 @@ class CLI
         input = @prompt.select("What would you like to do?", [
             "Read the whitepaper for #{currency.name}.", 
             "Add this currency to your portfolio.", 
-            "Check this currenies current price.",
+            "Check this currencies current price.",
             "See #{currency.name}'s details.",
+            "Logout",
             "Exit"
         ])
         case input
@@ -45,17 +60,29 @@ class CLI
             currency.get_whitepaper
             currency_menu
         when "Add this currency to your portfolio."
-            puts "this feature is not yet available"
+            num = @prompt.ask("How many #{currency.name} would you like to add to your portfolio") do |n|
+                    n.validate(/\d/)
+                    end
+             portfolio = currency.add_to_portfolio(num.to_i, @user.username)
+           # portfolio.add_user(@user.username) #|| portfolio.find_by_username(@user.username)
+            puts "Your Portfolio:"
+            Portfolio.print_portfolio #print_user_portfolio(@user.username) #print_portfolio
             currency_menu
-        when "Check this currenies current price."
+        when "Check this currencies current price."
             puts "#{currency.name}'s current price is #{currency.price}"
             currency_menu
         when "See #{currency.name}'s details."
             currency.print_details
             currency_menu
+        when "Logout"
+            logout
         when "Exit"
             exit_app
         end
+    end
 
+    def logout
+        @user = nil
+        menu
     end
 end
