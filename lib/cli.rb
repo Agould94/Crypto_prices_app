@@ -13,10 +13,13 @@ class CLI
 
     def menu
         if @user
-            input = @prompt.enum_select("What would you like to do?", ["See all supported cryptocurrencies.", "Exit"])
+            input = @prompt.enum_select("What would you like to do?", ["See all supported cryptocurrencies.","See your portfolio.", "Exit"])
             case input
             when "See all supported cryptocurrencies."
             show_currencies(Currency.all)
+            when "See your portfolio."
+                Portfolio.print_user_portfolio(@user.username)
+                menu
             when "Exit"
             exit_app
             end
@@ -63,10 +66,10 @@ class CLI
             num = @prompt.ask("How many #{currency.name} would you like to add to your portfolio") do |n|
                     n.validate(/\d/)
                     end
-             portfolio = currency.add_to_portfolio(num.to_i)#, @user.username)
+             portfolio = currency.add_to_portfolio(num.to_i, @user.username)#, @user.username)
            # portfolio.add_user(@user.username) #|| portfolio.find_by_username(@user.username)
             puts "Your Portfolio:"
-            Portfolio.print_portfolio #print_user_portfolio(@user.username) #print_portfolio
+            Portfolio.print_user_portfolio(@user.username) #print_portfolio
             currency_menu
         when "Check this currencies current price."
             puts "#{currency.name}'s current price is #{currency.price}"
