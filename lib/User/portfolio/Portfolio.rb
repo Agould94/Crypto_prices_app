@@ -16,7 +16,7 @@ class Portfolio
     end
 
     def self.total_value
-        self.all.map{|coin| coin.coin_value.to_i*coin.num.to_i}.sum
+        self.all.map{|coin| coin.coin_value.to_f.round(2)*coin.num.to_f.round(2)}.sum
     end
 
     def self.find_by_username(name)
@@ -50,16 +50,16 @@ class Portfolio
 
     def self.print_portfolio
         self.all.map do |coin| 
-            puts "#{coin.name}: #{coin.num} : $#{(coin.num.to_i)*(coin.coin_value.to_i)}"
+            puts "#{coin.name}: #{coin.num} : $#{(coin.num.to_f.round(2))*(coin.coin_value.to_f.round(2))}"
         end
     end
 
     def self.print_user_portfolio(name)
          portfolio = self.find_by_username(name)
         if portfolio.length > 0
-            puts "#{name}'s portfolio."
+            puts "#{name.capitalize}'s portfolio:"
             portfolio.map do |coin|
-                puts "#{coin.name}: #{coin.num} : $#{(coin.num.to_i)*(coin.coin_value.to_i)}"
+                puts "#{coin.name}: #{coin.num} : $#{(coin.num.to_f.round(2))*(coin.coin_value.to_f.round(2))}"
             end
         else
             puts "Your portfolio is currently empty"

@@ -14,7 +14,7 @@ class CLI
 
     def menu
         if @user
-            input = @prompt.enum_select("Hi, #{@user.username}, what would you like to do?", ["See all supported cryptocurrencies.","See your portfolio.", "Logout" "Exit"])
+            input = @prompt.enum_select("Hi, #{@user.username}, what would you like to do?", ["See all supported cryptocurrencies.","See your portfolio.", "Logout", "Exit"])
             case input
             when "See all supported cryptocurrencies."
             show_currencies(Currency.all)
@@ -62,29 +62,37 @@ class CLI
 
     def currency_menu
         input = @prompt.select("What would you like to do?", [
-            "Read the whitepaper for #{currency.name}.", 
-            "Add this currency to your portfolio.", 
-            "Check this currencies current price.",
-            "See #{currency.name}'s details.",
+            "Add #{currency.name} to your portfolio.",
+            "Remove #{currency.name} from your portfolio.",
             "Convert #{currency.name} into a different currency",
-            "Logout",
+            "Check #{currency.name}'s' current price.",
+            "See #{currency.name}'s details.",
+            "Read the whitepaper for #{currency.name}.",
+            "Choose a different currency",
             "Main Menu",
+            "Logout",
             "Exit"
         ])
         case input
         when "Read the whitepaper for #{currency.name}."
             currency.get_whitepaper
             currency_menu
-        when "Add this currency to your portfolio."
+        when "Add #{currency.name} to your portfolio."
             num = @prompt.ask("How many #{currency.name} would you like to add to your portfolio") do |n|
                     n.validate(/\d/, "Invalid entry: you must enter a number")
                     end
              portfolio = currency.add_to_portfolio(num.to_i, @user.username)#, @user.username)
            # portfolio.add_user(@user.username) #|| portfolio.find_by_username(@user.username)
-            puts "Your Portfolio:"
             Portfolio.print_user_portfolio(@user.username) #print_portfolio
             currency_menu
-        when "Check this currencies current price."
+        when "Remove #{currency.name} from your portfolio."
+            num = @prompt.ask("How many #{currency.name} would you like to remove from your portfolio") do |n|
+                n.validate(/\d/, "Invalide entry: you must enter a number")
+                end
+            portfolio = currency.subtract_from_portfolio(num.to_i, @user.username)
+            Portfolio.print_user_portfolio(@user.username)
+            currency_menu
+        when "Check #{currency.name}'s' current price."
             puts "#{currency.name}'s current price is #{currency.price}"
             currency_menu
         when "Convert #{currency.name} into a different currency"
@@ -94,6 +102,8 @@ class CLI
         when "See #{currency.name}'s details."
             currency.print_details
             currency_menu
+        when "Choose a different currency"
+            show_currencies(Currency.all)
         when "Main Menu"
             menu
         when "Logout"

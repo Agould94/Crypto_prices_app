@@ -13,4 +13,4 @@ require_relative "../lib/User/portfolio/Portfolio.rb"
 require_relative "../lib/User/portfolio/User.rb"
 require_relative "./seeds.rb"
  
-binding.pry
+#binding.pry
