@@ -24,11 +24,11 @@ class Portfolio
     end
 
     def self.find_by_coin_name(coin_name)
-        self.all.find{|coin| coin.name == name}
+        self.all.find{|coin| coin.name == coin_name}
     end
 
     def self.find_by_username_and_name(name, coin_name)
-        self.find_by_coin_name(coin_name).find_by_username(name)
+        self.find_by_coin_name(coin_name) && self.find_by_username(name)
         #self.find_by_coin_name(coin_name)
     end
 
@@ -36,8 +36,8 @@ class Portfolio
         @user = User.find_by_username(name)
     end
 
-    def self.create(hash, num, name)
-        self.new(hash, num, name)
+    def self.create(hash, num)
+        self.new(hash, num)
     end
 
     def self.find_or_create(name, hash, num)

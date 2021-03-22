@@ -63,7 +63,7 @@ class CLI
             num = @prompt.ask("How many #{currency.name} would you like to add to your portfolio") do |n|
                     n.validate(/\d/)
                     end
-             portfolio = currency.add_to_portfolio(num.to_i, @user.username)
+             portfolio = currency.add_to_portfolio(num.to_i)#, @user.username)
            # portfolio.add_user(@user.username) #|| portfolio.find_by_username(@user.username)
             puts "Your Portfolio:"
             Portfolio.print_portfolio #print_user_portfolio(@user.username) #print_portfolio
