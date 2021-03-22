@@ -68,6 +68,16 @@ class Currency
         MetaData.find_by_name("#{self.name}")
     end
 
+    def self.convert(coin1, coin2)
+        one = self.find_by_name(coin1)
+        two = self.find_by_name(coin2)
+        q = one.price.to_f 
+        r = two.price.to_f
+        convert = q/r
+        puts "#{one.name} is worth #{convert} of #{two.name}"
+
+    end
+
 end
 
 
