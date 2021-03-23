@@ -87,13 +87,13 @@ class CLI
             currency_menu
         when "Remove #{currency.name} from your portfolio."
             num = @prompt.ask("How many #{currency.name} would you like to remove from your portfolio") do |n|
-                n.validate(/\d/, "Invalide entry: you must enter a number")
+                n.validate(/\d/, "Invalid entry: you must enter a number")
                 end
             portfolio = currency.subtract_from_portfolio(num.to_i, @user.username)
             Portfolio.print_user_portfolio(@user.username)
             currency_menu
         when "Check #{currency.name}'s' current price."
-            puts "#{currency.name}'s current price is #{currency.price}"
+            puts "#{currency.name}'s current price is #{currency.price.to_f.round(2)}"
             currency_menu
         when "Convert #{currency.name} into a different currency"
             c = currency_list(Currency.all)

@@ -6,7 +6,7 @@ class CryptoData
 
     URLM = "https://api.nomics.com/v1/markets?key=421c2246c0e25e7aad14db3397041634&exchange=binance&base=BTC,ETH,LTC,XMR&quote=BTC,ETH,BNB"
     URLC = "https://api.nomics.com/v1/currencies/ticker?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP,LTC,ADA,XLM&interval=1d,30d&convert=USD&per-page=100&page=1"
-    URLCM = "https://api.nomics.com/v1/currencies?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP&attributes=id,name,logo_url,website_url,medium_url,github_url,whitepaper_url"
+    URLCM = "https://api.nomics.com/v1/currencies?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP,LTC,ADA,XLM&attributes=id,name,logo_url,website_url,medium_url,github_url,whitepaper_url"
     attr_reader :currencies 
     attr_accessor :metadata, :markets
 
