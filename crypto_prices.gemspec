@@ -5,7 +5,7 @@ require_relative "lib/crypto_prices/version"
 Gem::Specification.new do |spec|
   spec.name          = "crypto_prices"
   spec.version       = CryptoPrices::VERSION
-  spec.authors       = ["TODO: Write your name"]
+  spec.authors       = ["Alexander Gould"
   spec.email         = ["alexander.gould94@gmail.com"]
 
   spec.summary       = "TODO: Write a short summary, because RubyGems requires one."

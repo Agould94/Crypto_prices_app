@@ -1,11 +1,8 @@
 # CryptoPrices
 
-User enters Cryptocurrency name, gets price.
-User enters cryptocurrency markets(where they can trade currency), gets a list of marktets
--user can calculate what an inputted amount of a cryptocurrency is worth.
--rounds to the nearest dollar
-cryptocurrency has many markets through wallets
-marketplaces have many cryptocurrencies.
+-The Cryptoprices app is a command line interface for tracking cryptocurrencies and storing them in a portfolio. 
+
+
 
 
 ## Installation
@@ -26,7 +23,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+-Run "run.rb" and enter the app.
+-Enter a username
+-You can choose from a number of currencies.
+-Get detailed information about the currencies. 
+-Add the currency to your portfolio.
+-See the conversion rate of this currency into other currencies. 
+-Keep track of you currencies in your portfolio and of their daily price fluctuations. 
 
 ## Development
 
@@ -36,11 +39,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/crypto_prices. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/crypto_prices/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/[Agould94]/crypto_prices. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/crypto_prices/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This gem is liscensed to Alexander Gould
 
 ## Code of Conduct
 
