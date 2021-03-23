@@ -24,11 +24,17 @@ Or install it yourself as:
 ## Usage
 
 -Run "run.rb" and enter the app.
+
 -Enter a username
+
 -You can choose from a number of currencies.
+
 -Get detailed information about the currencies. 
+
 -Add the currency to your portfolio.
+
 -See the conversion rate of this currency into other currencies. 
+
 -Keep track of you currencies in your portfolio and of their daily price fluctuations. 
 
 ## Development
