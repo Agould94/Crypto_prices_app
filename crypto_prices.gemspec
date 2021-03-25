@@ -8,9 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alexander Gould"
   spec.email         = ["alexander.gould94@gmail.com"]
 
-  spec.summary       = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description   = "TODO: Write a longer description or delete this line."
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "This is a CLI cryptocurrency tracker and portfolio."
+  spec.homepage      = "https://github.com/Agould94/Crypto_prices_app"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 

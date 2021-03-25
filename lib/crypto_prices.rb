@@ -28,8 +28,7 @@ module CryptoPrices
 
 
   end
-  #bitcoin = self.new("bitcoin", "50000", "coinbase")
-  #ethereum = self.new("ethereum","2000","marketplace")
+
 
 
 

@@ -4,18 +4,30 @@ require 'json'
 
 class CryptoData
 
-    URLM = "https://api.nomics.com/v1/markets?key=421c2246c0e25e7aad14db3397041634&exchange=binance&base=BTC,ETH,LTC,XMR&quote=BTC,ETH,BNB"
-    URLC = "https://api.nomics.com/v1/currencies/ticker?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP,LTC,ADA,XLM&interval=1d,30d&convert=USD&per-page=100&page=1"
-    URLCM = "https://api.nomics.com/v1/currencies?key=421c2246c0e25e7aad14db3397041634&ids=BTC,ETH,XRP,LTC,ADA,XLM&attributes=id,name,logo_url,website_url,medium_url,github_url,whitepaper_url"
+    URLM = "https://api.nomics.com/v1/markets?key=#{ENV["KEY"]}&exchange=binance&base=BTC,ETH,LTC,XMR&quote=BTC,ETH,BNB"
+    URLC = "https://api.nomics.com/v1/currencies/ticker?key=#{ENV["KEY"]}&ids=BTC,ETH,XRP,LTC,ADA,XLM,COMP,DOGE,BAT&interval=1d,30d&convert=USD&per-page=100&page=1"
+    URLCM = "https://api.nomics.com/v1/currencies?key=#{ENV["KEY"]}&ids=BTC,ETH,XRP,LTC,ADA,XLM,COMP,DOGE,BAT&attributes=id,name,logo_url,website_url,medium_url,github_url,whitepaper_url"
     attr_reader :currencies 
-    attr_accessor :metadata, :markets
-
+    attr_accessor :metadata, :markets, :ids
+    @@ids = ["BTC","ETH","XRP","LTC","ADA","XLM"]
     def initialize
        @currencies = JSON.parse(self.get_programs_for_currencies)
        sleep 1
        @metadata = JSON.parse(self.get_currency_metadata)
-       sleep 1
-       @markets = JSON.parse(self.get_programs_for_markets)
+       #sleep 1
+       #@markets = JSON.parse(self.get_programs_for_markets)
+    end
+
+    def self.currency_url(array)
+       "https://api.nomics.com/v1/currencies/ticker?key=#{ENV["KEY"]}&ids=#{array.join(",")}&interval=1d,30d&convert=USD&per-page=100&page=1"
+    end
+
+    def self.ids
+        @@ids
+    end
+
+    def self.add_coin(coin)
+        self.ids << coin
     end
 
     def get_programs_for_markets
@@ -31,13 +43,22 @@ class CryptoData
     end
 
     def get_programs_for_currencies
-        uri = URI.parse(URLC)
+        uri = URI.parse(CryptoData.currency_url(CryptoData.ids))
         response = Net::HTTP.get_response(uri)
         response.body
     end
 
     def self.all
         @@currencies
+    end
+
+    def self.add_currency(coin)
+        CryptoData.add_coin(coin)
+        CryptoData.new.currencies.each do |currency| 
+            if currency["id"] == coin
+                Currency.new(currency)
+            end
+        end
     end
 
     def get_currency(coin)
@@ -48,13 +69,5 @@ class CryptoData
         end
     end
 
-
-    # def self.currencies_array
-    #     self.parsed_currencies
-    # end
-
 end
-# currency_programs = GetPrograms.new.get_programs_for_currencies
-# market_programs = GetPrograms.new.get_programs_for_markets
 
-# parsed_currencies = JSON.parse(currency_programs)

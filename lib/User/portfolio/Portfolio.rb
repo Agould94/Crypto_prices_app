@@ -44,14 +44,15 @@ class Portfolio
         name = self.find_by_name(name) || self.create(hash, num, name)
     end
 
-    def self.find_portfolio
-        self.all.select{}
-    end
-
     def self.print_portfolio
         self.all.map do |coin| 
             puts "#{coin.name}: #{coin.num} : $#{(coin.num.to_f.round(2))*(coin.coin_value.to_f.round(2))}"
         end
+    end
+
+    def self.portfolio_total(name)
+        t = self.find_by_username(name).map{|coin| coin.num.to_f*coin.coin_value.to_f}.sum
+        sprintf("%0.02f", t)
     end
 
     def self.print_user_portfolio(name)
@@ -59,8 +60,13 @@ class Portfolio
         if portfolio.length > 0
             puts "#{name.capitalize}'s portfolio:"
             portfolio.map do |coin|
-                puts "#{coin.name}: #{coin.num} : $#{(coin.num.to_f.round(2))*(coin.coin_value.to_f.round(2))}"
+                if coin.num.to_f.round(2) > 0
+                    puts "#{coin.name}: #{coin.num} : $#{sprintf("%0.02f", coin.num.to_f*coin.coin_value.to_f)}"
+                else
+                    nil
+                end
             end
+            puts "Portfolio total: $#{self.portfolio_total(name)}"
         else
             puts "Your portfolio is currently empty"
         end

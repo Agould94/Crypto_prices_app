@@ -26,15 +26,14 @@ class Currency
 
     def parse_last_day
         if @price_change[0] == "-"
-            puts "#{self.name}'s price has decreased by $#{@price_change.delete_prefix("-").to_f.round(2)} in the last day."
+            puts "#{self.name}'s price has decreased by $#{sprintf("%0.02f", @price_change.delete_prefix("-").to_f)} in the last day."
         else
-            puts "#{self.name}'s price has increased by $#{@price_change.to_f.round(2)} in the last day."
+            puts "#{self.name}'s price has increased by $#{sprintf("%0.02f", @price_change.to_f)} in the last day."
         end
     end
 
     def add_to_portfolio(num, name)
-        #p = Portfolio.find_by_username(name)
-        if c = Portfolio.find_by_username_and_name(name, self.name) #self.name) #Portfolio.find_by_username(name)
+        if c = Portfolio.find_by_username_and_name(name, self.name) 
             c.num += num
         else Portfolio.create(self, num, name)
         end
@@ -46,7 +45,7 @@ class Currency
     end
 
     def self.find_by_name(name)
-        self.all.find{|coin| coin.name == name.capitalize}
+        self.all.find{|coin| coin.name == name} #capitalize}
     end
 
     def get_whitepaper
@@ -56,22 +55,22 @@ class Currency
 
     def print_details
         puts self.name
-        puts "Current_price: #{self.price.to_f.round(2)}"
+        puts "Current_price: #{sprintf("%0.02f", self.price.to_f)}"
         puts "Symbol: #{self.id}"
         puts "The Market Capitalization of #{self.name} is $#{self.market_cap}"
         puts "#{self.name} is available on #{self.num_exchanges} different exchanges."
-        puts "#{self.name} reached an all-time high of $#{self.high.to_f.round(2)} on #{self.high_timestamp.partition('T').first}"
+        puts "#{self.name} reached an all-time high of $#{sprintf("%0.02f", self.high.to_f)} on #{self.high_timestamp.partition('T').first}"
         parse_last_day
     end
 
     def i_own(n)
-        crypto = self.price.to_f.round(2)
-        puts "You currently own #{n*crypto} worth of #{self.name}"
+        crypto = self.price.to_f
+        puts "You currently own #{sprintf("%0.02f", n*crypto)} worth of #{self.name}"
     end
 
     def self.coin_value(name, n)
        coin = self.find_by_name(name).price.to_f.round(2)
-       n*coin
+       sprintf("%0.02f",n*coin)
     end
 
     def my_metadata

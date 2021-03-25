@@ -14,10 +14,12 @@ class CLI
 
     def menu
         if @user
-            input = @prompt.enum_select("Hi, #{@user.username}, what would you like to do?", ["See all supported cryptocurrencies.","See your portfolio.", "Logout", "Exit"])
+            input = @prompt.enum_select("Hi, #{@user.username}, what would you like to do?", ["See all supported cryptocurrencies.","Choose a currency.","See your portfolio.", "Logout", "Exit"])
             case input
             when "See all supported cryptocurrencies."
             show_currencies(Currency.all)
+            when "Choose a currency."
+                pick_currency
             when "See your portfolio."
                 Portfolio.print_user_portfolio(@user.username)
                 menu
@@ -39,11 +41,22 @@ class CLI
         @user = User.find_or_create(username)
     end
 
-    def show_currencies(currencies)
-        input = @prompt.select("Which currency would you like to view?", currencies.map{|currency| currency.name})
-        @currency = Currency.find_by_name(input)
+    def pick_currency
+        input = @prompt.ask("Which currency would you like to view?(please enter the Currency name)")
+        @currency = Currency.find_by_name(input.capitalize)
         currency.print_details
         currency_menu
+    end
+
+    def show_currencies(currencies)
+        input = @prompt.select("Which currency would you like to view?", [currencies.map{|currency| currency.name}, "Add a new currency."])
+        if input == "Add a new currency."
+            add_coin
+        else 
+            @currency = Currency.find_by_name(input)
+            currency.print_details
+            currency_menu
+        end
     end
 
     def currency_list(currencies)
@@ -51,6 +64,21 @@ class CLI
         @second_currency = Currency.find_by_name(input)
         second_currency.name
     end
+
+    def add_coin
+        input = @prompt.ask("Please enter the ticker ID of the currency you would like to add:")
+        CryptoData.add_currency(input)
+        show_currencies(Currency.all)
+    end
+
+    # def add_currency(coin)
+    #     CryptoData.add_coin(coin)
+    #     CryptoData.new.each do |currency| 
+    #         if currency["id"] == coin
+    #             Currency.new(currency)
+    #         end
+    #     end
+    # end
 
     def print_portfolio
         Portfolio.print_portfolio
@@ -93,7 +121,7 @@ class CLI
             Portfolio.print_user_portfolio(@user.username)
             currency_menu
         when "Check #{currency.name}'s' current price."
-            puts "#{currency.name}'s current price is #{currency.price.to_f.round(2)}"
+            puts "#{currency.name}'s current price is #{sprintf("%0.02f", currency.price)}"
             currency_menu
         when "Convert #{currency.name} into a different currency"
             c = currency_list(Currency.all)
