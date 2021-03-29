@@ -71,15 +71,6 @@ class CLI
         show_currencies(Currency.all)
     end
 
-    # def add_currency(coin)
-    #     CryptoData.add_coin(coin)
-    #     CryptoData.new.each do |currency| 
-    #         if currency["id"] == coin
-    #             Currency.new(currency)
-    #         end
-    #     end
-    # end
-
     def print_portfolio
         Portfolio.print_portfolio
     end
@@ -109,9 +100,8 @@ class CLI
             num = @prompt.ask("How many #{currency.name} would you like to add to your portfolio") do |n|
                     n.validate(/\d/, "Invalid entry: you must enter a number")
                     end
-             portfolio = currency.add_to_portfolio(num.to_i, @user.username)#, @user.username)
-           # portfolio.add_user(@user.username) #|| portfolio.find_by_username(@user.username)
-            Portfolio.print_user_portfolio(@user.username) #print_portfolio
+             portfolio = currency.add_to_portfolio(num.to_i, @user.username)
+            Portfolio.print_user_portfolio(@user.username)
             currency_menu
         when "Remove #{currency.name} from your portfolio."
             num = @prompt.ask("How many #{currency.name} would you like to remove from your portfolio") do |n|

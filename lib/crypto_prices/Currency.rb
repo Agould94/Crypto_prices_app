@@ -45,7 +45,7 @@ class Currency
     end
 
     def self.find_by_name(name)
-        self.all.find{|coin| coin.name == name} #capitalize}
+        self.all.find{|coin| coin.name == name}
     end
 
     def get_whitepaper

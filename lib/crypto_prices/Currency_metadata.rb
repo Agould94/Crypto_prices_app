@@ -1,5 +1,5 @@
 class MetaData
-    attr_accessor :website_url, :whitepaper_url, :name
+    attr_accessor :website_url, :whitepaper_url, :name, :id
 
     @@all = []
 
@@ -7,6 +7,7 @@ class MetaData
         @name = hash["name"]
         @website_url = hash["website_url"]
         @whitepaper_url = hash["whitepaper_url"] 
+        @id = hash["id"]
         @@all << self
     end
 

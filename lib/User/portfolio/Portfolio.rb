@@ -6,8 +6,6 @@ class Portfolio
         @coin_value = currency.price
         @num = num
         @user = User.find_by_username(name)
-        #@user = User.find_or_create(username)
-        #@total_value = self.all.map{|coin| coin.coin_value}.sum
         @@all<<self
     end
 
@@ -29,7 +27,6 @@ class Portfolio
 
     def self.find_by_username_and_name(name, coin_name)
         self.find_by_username(name).find{|coin| coin.name == coin_name}
-        #self.find_by_coin_name(coin_name)
     end
 
     def add_user(name)
@@ -43,6 +40,7 @@ class Portfolio
     def self.find_or_create(name, hash, num)
         name = self.find_by_name(name) || self.create(hash, num, name)
     end
+
 
     def self.print_portfolio
         self.all.map do |coin| 

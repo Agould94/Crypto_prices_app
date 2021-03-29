@@ -22,6 +22,10 @@ class CryptoData
        "https://api.nomics.com/v1/currencies/ticker?key=#{ENV["KEY"]}&ids=#{array.join(",")}&interval=1d,30d&convert=USD&per-page=100&page=1"
     end
 
+    def self.metadata_url(array)
+        "https://api.nomics.com/v1/currencies?key=#{ENV["KEY"]}&ids=#{array.join(",")}&attributes=id,name,logo_url,website_url,medium_url,github_url,whitepaper_url"
+    end
+
     def self.ids
         @@ids
     end
@@ -37,7 +41,7 @@ class CryptoData
     end
 
     def get_currency_metadata
-        uri = URI.parse(URLCM)
+        uri = URI.parse(CryptoData.metadata_url(CryptoData.ids))
         response = Net::HTTP.get_response(uri)
         response.body
     end
@@ -57,6 +61,12 @@ class CryptoData
         CryptoData.new.currencies.each do |currency| 
             if currency["id"] == coin
                 Currency.new(currency)
+            end
+        end
+        sleep 1
+        CryptoData.new.metadata.each do |currency|
+            if currency["id"] == coin
+                MetaData.new(currency)
             end
         end
     end
